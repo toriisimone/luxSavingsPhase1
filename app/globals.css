@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gradient-hero: radial-gradient(circle at top, #f4a261, #1d3557 70%);
+  --gradient-card: linear-gradient(135deg, rgba(244, 162, 97, 0.9), rgba(29, 53, 87, 0.9));
+  --surface: #0f172a;
+  --muted: #94a3b8;
+  --outline: #facc15;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100;
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid var(--outline);
+  outline-offset: 3px;
+}
+
+.gradient-border {
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--surface), var(--surface)), var(--gradient-card);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.shadow-strong {
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.7);
+}
