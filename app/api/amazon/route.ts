@@ -37,7 +37,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
 
-  // Normalize slug: lowercase, trim, replace spaces and underscores with hyphens
+  // Normalize slug: lowercase, trim, replace spaces/underscores with hyphens
   const normalizedSlug = slug
     ?.toLowerCase()
     .trim()
