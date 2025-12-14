@@ -8,7 +8,7 @@ export default async function ProductPage({
 
   const normalizedSlug = params.slug.toLowerCase().trim().replace(/[\s_]+/g, "-");
 
-  let product = null;
+  let product: any = null;
 
   try {
     const res = await fetch(`${baseUrl}/api/amazon?slug=${normalizedSlug}`, {
