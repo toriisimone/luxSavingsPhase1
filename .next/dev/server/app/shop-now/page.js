@@ -1,6 +1,6 @@
 var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/shop-now/page.js")
 R.c("server/chunks/ssr/node_modules_1f81ec30._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__1d32b4db._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__423583ba._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_3b4d20e1._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__7f148858._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js")

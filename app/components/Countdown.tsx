@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 interface CountdownProps {
-  targetDate: string; // e.g., "2025-12-13T23:59:59"
+  targetDate: string; // e.g., "2025-12-31T23:59:59Z"
 }
 
 const calculateTimeLeft = (targetDate: string) => {
@@ -12,51 +12,65 @@ const calculateTimeLeft = (targetDate: string) => {
   const difference = target.getTime() - now.getTime();
 
   if (difference <= 0) {
-    return { hours: 0, minutes: 0, seconds: 0 };
+    return { expired: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
-  return {
-    hours: Math.ceil(difference / (1000 * 60 * 60)), // intuitive rounding
-    minutes: Math.floor((difference / (1000 * 60)) % 60),
-    seconds: Math.floor((difference / 1000) % 60),
-  };
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((difference / (1000 * 60)) % 60);
+  const seconds = Math.floor((difference / 1000) % 60);
+
+  return { expired: false, days, hours, minutes, seconds };
 };
 
 const Countdown = ({ targetDate }: CountdownProps) => {
-  // Declare hooks unconditionally (no early return before all hooks run)
-  const [mounted, setMounted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState(
+    calculateTimeLeft(targetDate)
+  );
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    // Set initial value once mounted
-    setTimeLeft(calculateTimeLeft(targetDate));
-
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [mounted, targetDate]);
+  }, [targetDate]);
+
+  if (timeLeft.expired) {
+    return (
+      <div className="text-red-500 font-semibold">
+        Deal Expired
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
-      {/* Live ticking countdown (shows zeros until mounted updates) */}
+      {/* Live ticking countdown */}
       <div className="text-white font-mono text-lg">
-        {timeLeft.hours.toString().padStart(2, '0')}:
-        {timeLeft.minutes.toString().padStart(2, '0')}:
-        {timeLeft.seconds.toString().padStart(2, '0')} Until Phase One closes
+        {timeLeft.days}d {timeLeft.hours.toString().padStart(2, '0')}h :
+        {timeLeft.minutes.toString().padStart(2, '0')}m :
+        {timeLeft.seconds.toString().padStart(2, '0')}s
       </div>
 
-      {/* Dynamic Hours Left stat */}
-      <div className="rounded-2xl bg-white/5 p-4 text-center">
-        <p className="text-2xl font-semibold text-white">{timeLeft.hours}</p>
-        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Hours Left</p>
+      {/* Stats display */}
+      <div className="flex gap-4">
+        <div className="rounded-2xl bg-white/5 p-4 text-center flex-1">
+          <p className="text-2xl font-semibold text-white">{timeLeft.days}</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Days</p>
+        </div>
+        <div className="rounded-2xl bg-white/5 p-4 text-center flex-1">
+          <p className="text-2xl font-semibold text-white">{timeLeft.hours}</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Hours</p>
+        </div>
+        <div className="rounded-2xl bg-white/5 p-4 text-center flex-1">
+          <p className="text-2xl font-semibold text-white">{timeLeft.minutes}</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Minutes</p>
+        </div>
+        <div className="rounded-2xl bg-white/5 p-4 text-center flex-1">
+          <p className="text-2xl font-semibold text-white">{timeLeft.seconds}</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Seconds</p>
+        </div>
       </div>
     </div>
   );

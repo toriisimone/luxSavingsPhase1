@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Countdown from './components/Countdown';
 
 const heroCards = [
   {
@@ -18,7 +17,6 @@ const heroCards = [
   }
 ];
 
-// Hours Left is handled by Countdown; keep only static stats here
 const heroStats = [
   { label: 'Deals Live', value: '87' },
   { label: 'Brands', value: '34' }
@@ -36,13 +34,13 @@ const HomePage = () => {
                 Amazon Deals reimagined for Phase One energy.
               </h1>
               <p className="text-lg text-slate-300">
-                Gradient cards, live countdowns, and aligned CTA journeys guide every guest through curated microsites built
+                Gradient cards and aligned CTA journeys guide every guest through curated microsites built
                 for measurable lift.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/shop-deals"
+                href="/deals"
                 className="rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-slate-950 shadow-sm transition hover:shadow-lg"
                 data-analytics="cta.hero.deals"
               >
@@ -58,12 +56,8 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Countdown card */}
+          {/* Stats card (no countdown) */}
           <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-8 shadow-strong">
-            <p className="text-sm uppercase tracking-[0.4em] text-slate-400">Countdown</p>
-
-            <Countdown targetDate="2025-12-13T02:00:00" />
-
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {heroStats.map((stat) => (
                 <div key={stat.label} className="rounded-2xl bg-white/5 p-4 text-center">

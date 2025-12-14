@@ -12,32 +12,39 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature();
 'use client';
 ;
-const Countdown = ({ targetDate })=>{
-    _s();
-    const calculateTimeLeft = ()=>{
-        const now = new Date();
-        const target = new Date(targetDate);
-        const difference = target.getTime() - now.getTime();
-        let timeLeft = {
+const calculateTimeLeft = (targetDate)=>{
+    const now = new Date();
+    const target = new Date(targetDate);
+    const difference = target.getTime() - now.getTime();
+    if (difference <= 0) {
+        return {
+            expired: true,
+            days: 0,
             hours: 0,
             minutes: 0,
             seconds: 0
         };
-        if (difference > 0) {
-            timeLeft = {
-                hours: Math.floor(difference / (1000 * 60 * 60) % 24),
-                minutes: Math.floor(difference / (1000 * 60) % 60),
-                seconds: Math.floor(difference / 1000 % 60)
-            };
-        }
-        return timeLeft;
+    }
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(difference / (1000 * 60 * 60) % 24);
+    const minutes = Math.floor(difference / (1000 * 60) % 60);
+    const seconds = Math.floor(difference / 1000 % 60);
+    return {
+        expired: false,
+        days,
+        hours,
+        minutes,
+        seconds
     };
-    const [timeLeft, setTimeLeft] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(calculateTimeLeft());
+};
+const Countdown = ({ targetDate })=>{
+    _s();
+    const [timeLeft, setTimeLeft] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(calculateTimeLeft(targetDate));
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Countdown.useEffect": ()=>{
             const timer = setInterval({
                 "Countdown.useEffect.timer": ()=>{
-                    setTimeLeft(calculateTimeLeft());
+                    setTimeLeft(calculateTimeLeft(targetDate));
                 }
             }["Countdown.useEffect.timer"], 1000);
             return ({
@@ -47,23 +54,153 @@ const Countdown = ({ targetDate })=>{
     }["Countdown.useEffect"], [
         targetDate
     ]);
+    if (timeLeft.expired) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "text-red-500 font-semibold",
+            children: "Deal Expired"
+        }, void 0, false, {
+            fileName: "[project]/app/components/Countdown.tsx",
+            lineNumber: 41,
+            columnNumber: 7
+        }, ("TURBOPACK compile-time value", void 0));
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "text-white font-mono text-lg",
+        className: "space-y-4",
         children: [
-            timeLeft.hours.toString().padStart(2, '0'),
-            ":",
-            timeLeft.minutes.toString().padStart(2, '0'),
-            ":",
-            timeLeft.seconds.toString().padStart(2, '0'),
-            " Until Phase One closes"
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-white font-mono text-lg",
+                children: [
+                    timeLeft.days,
+                    "d ",
+                    timeLeft.hours.toString().padStart(2, '0'),
+                    "h :",
+                    timeLeft.minutes.toString().padStart(2, '0'),
+                    "m :",
+                    timeLeft.seconds.toString().padStart(2, '0'),
+                    "s"
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/Countdown.tsx",
+                lineNumber: 50,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex gap-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "rounded-2xl bg-white/5 p-4 text-center flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-2xl font-semibold text-white",
+                                children: timeLeft.days
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 59,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs uppercase tracking-[0.3em] text-slate-400",
+                                children: "Days"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 60,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/Countdown.tsx",
+                        lineNumber: 58,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "rounded-2xl bg-white/5 p-4 text-center flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-2xl font-semibold text-white",
+                                children: timeLeft.hours
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 63,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs uppercase tracking-[0.3em] text-slate-400",
+                                children: "Hours"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 64,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/Countdown.tsx",
+                        lineNumber: 62,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "rounded-2xl bg-white/5 p-4 text-center flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-2xl font-semibold text-white",
+                                children: timeLeft.minutes
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 67,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs uppercase tracking-[0.3em] text-slate-400",
+                                children: "Minutes"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 68,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/Countdown.tsx",
+                        lineNumber: 66,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "rounded-2xl bg-white/5 p-4 text-center flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-2xl font-semibold text-white",
+                                children: timeLeft.seconds
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 71,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0)),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs uppercase tracking-[0.3em] text-slate-400",
+                                children: "Seconds"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/Countdown.tsx",
+                                lineNumber: 72,
+                                columnNumber: 11
+                            }, ("TURBOPACK compile-time value", void 0))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/components/Countdown.tsx",
+                        lineNumber: 70,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0))
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/Countdown.tsx",
+                lineNumber: 57,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/Countdown.tsx",
-        lineNumber: 42,
+        lineNumber: 48,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Countdown, "2yD7J9BRKO6eNclZT/dCzRz3Fpg=");
+_s(Countdown, "N/D2vKZjgjegHNcPc6l31bfnHi0=");
 _c = Countdown;
 const __TURBOPACK__default__export__ = Countdown;
 var _c;
