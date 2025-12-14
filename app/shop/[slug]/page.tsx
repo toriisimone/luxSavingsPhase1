@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default async function ProductPage({
   params,
 }: {
@@ -47,8 +45,6 @@ export default async function ProductPage({
       {product.discount && (
         <p className="text-green-400 mb-4">Discount: {product.discount}</p>
       )}
-
-      {/* Skip image rendering entirely */}
 
       {product.description && (
         <p className="text-slate-300 mb-6">{product.description}</p>
