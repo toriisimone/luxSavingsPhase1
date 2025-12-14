@@ -37,9 +37,12 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
 
-  const normalizedSlug = slug?.toLowerCase().trim();
+  // Normalize slug: lowercase, trim, replace spaces with hyphens
+  const normalizedSlug = slug?.toLowerCase().trim().replace(/\s+/g, "-");
 
-  const product = products.find((p) => p.slug.toLowerCase() === normalizedSlug);
+  const product = products.find(
+    (p) => p.slug.toLowerCase() === normalizedSlug
+  );
 
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
