@@ -7,8 +7,13 @@ export default async function ProductPage({
 }) {
   const { slug } = params;
 
-  // Fetch product details from Amazon API using relative path
-  const res = await fetch(`/api/amazon?slug=${slug}`, { cache: "no-store" });
+  // Use absolute URL so it works on Vercel and locally
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL || "https://lux-savings-phase1.vercel.app";
+
+  const res = await fetch(`${baseUrl}/api/amazon?slug=${slug}`, {
+    cache: "no-store",
+  });
   const product = await res.json();
 
   if (!product || product.error) {
