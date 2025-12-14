@@ -30,21 +30,6 @@ const products = [
   },
 ];
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const slug = searchParams.get("slug");
-
-  if (!slug) {
-    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
-  }
-
-  const normalizedSlug = slug.toLowerCase().trim().replace(/[\s_]+/g, "-");
-
-  const product = products.find((p) => p.slug === normalizedSlug);
-
-  if (!product) {
-    return NextResponse.json({ error: "Product not found" }, { status: 404 });
-  }
-
-  return NextResponse.json(product, { status: 200 });
+export async function GET() {
+  return NextResponse.json(products, { status: 200 });
 }

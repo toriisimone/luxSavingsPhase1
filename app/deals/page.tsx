@@ -1,45 +1,41 @@
-import Link from "next/link";
+export default async function DealsPage() {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_URL || "https://lux-savings-phase1.vercel.app";
 
-const deals = [
-  {
-    product: "Wireless Headphones",
-    slug: "wireless-headphones",
-    discount: "20%",
-    price: 59.99,
-  },
-  {
-    product: "Smart Watch",
-    slug: "smart-watch",
-    discount: "15%",
-    price: 89.99,
-  },
-  {
-    product: "Bluetooth Speaker",
-    slug: "bluetooth-speaker",
-    discount: "25%",
-    price: 39.99,
-  },
-];
+  let products: any[] = [];
 
-export default function DealsPage() {
+  try {
+    const res = await fetch(`${baseUrl}/api/amazon`, { cache: "no-store" });
+    if (res.ok) {
+      products = await res.json();
+    }
+  } catch (error) {
+    console.error("Error loading deals:", error);
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 p-8">
       <h1 className="text-3xl font-bold text-white mb-6">Deals</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {deals.map((deal) => (
+        {products.map((product) => (
           <div
-            key={deal.slug}
-            className="bg-slate-900 p-6 rounded-lg shadow-lg text-white"
+            key={product.id}
+            className="bg-slate-900 p-6 rounded-lg shadow-lg"
           >
-            <h2 className="text-xl font-semibold mb-2">{deal.product}</h2>
-            <p className="text-slate-300 mb-2">Price: ${deal.price}</p>
-            <p className="text-green-400 mb-4">Discount: {deal.discount}</p>
-            <Link
-              href={`/shop/${deal.slug}`}
+            <h2 className="text-xl font-semibold text-white mb-2">
+              {product.product}
+            </h2>
+            <p className="text-slate-300 mb-2">Price: ${product.price}</p>
+            <p className="text-green-400 mb-4">Discount: {product.discount}</p>
+            <p className="text-slate-400 mb-4">{product.description}</p>
+            <a
+              href={product.affiliateLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
               Shop Now
-            </Link>
+            </a>
           </div>
         ))}
       </div>
