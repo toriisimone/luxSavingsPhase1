@@ -7,11 +7,8 @@ export default async function ProductPage({
 }) {
   const { slug } = params;
 
-  // Fetch product details from Amazon API
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/amazon?slug=${slug}`,
-    { cache: "no-store" }
-  );
+  // Fetch product details from Amazon API using relative path
+  const res = await fetch(`/api/amazon?slug=${slug}`, { cache: "no-store" });
   const product = await res.json();
 
   if (!product || product.error) {
