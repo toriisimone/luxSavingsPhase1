@@ -18,7 +18,7 @@ export default async function ProductPage({
     });
 
     if (!res.ok) {
-      throw new Error("API returned non-200");
+      throw new Error(`API returned ${res.status}`);
     }
 
     product = await res.json();
@@ -48,7 +48,7 @@ export default async function ProductPage({
         <p className="text-green-400 mb-4">Discount: {product.discount}</p>
       )}
 
-      {/* Image block is skipped entirely */}
+      {/* Skip image rendering entirely */}
 
       {product.description && (
         <p className="text-slate-300 mb-6">{product.description}</p>
