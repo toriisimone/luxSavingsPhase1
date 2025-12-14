@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default async function DealsPage() {
   // Fetch deals from your API
-  const res = await fetch("http://localhost:3000/api/deals", { cache: "no-store" });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/deals`, { cache: "no-store" });
   const deals = await res.json();
 
   return (
