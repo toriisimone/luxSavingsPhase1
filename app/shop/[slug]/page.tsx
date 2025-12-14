@@ -10,12 +10,23 @@ export default async function ProductPage({
 
   const normalizedSlug = params.slug.toLowerCase().trim().replace(/[\s_]+/g, "-");
 
-  const res = await fetch(`${baseUrl}/api/amazon?slug=${normalizedSlug}`, {
-    cache: "no-store",
-  });
+  let product = null;
 
-  // Handle non-200 responses cleanly
-  if (!res.ok) {
+  try {
+    const res = await fetch(`${baseUrl}/api/amazon?slug=${normalizedSlug}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("API returned non-200");
+    }
+
+    product = await res.json();
+  } catch (error) {
+    console.error("Error loading product:", error);
+  }
+
+  if (!product || product.error) {
     return (
       <main className="min-h-screen bg-slate-950 p-8">
         <h1 className="text-3xl font-bold text-white mb-4">Product not found</h1>
@@ -25,8 +36,6 @@ export default async function ProductPage({
       </main>
     );
   }
-
-  const product = await res.json();
 
   return (
     <main className="min-h-screen bg-slate-950 p-8">
@@ -39,15 +48,7 @@ export default async function ProductPage({
         <p className="text-green-400 mb-4">Discount: {product.discount}</p>
       )}
 
-      {product.image && (
-        <Image
-          src={product.image}
-          alt={product.product}
-          width={400}
-          height={300}
-          className="rounded-lg shadow-lg mb-6"
-        />
-      )}
+      {/* Image block is skipped entirely */}
 
       {product.description && (
         <p className="text-slate-300 mb-6">{product.description}</p>
