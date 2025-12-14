@@ -28,6 +28,15 @@ const products = [
     discount: "25%",
     affiliateLink: "https://www.amazon.com/dp/example3",
   },
+  {
+    id: 4,
+    slug: "laptop-stand",
+    product: "Laptop Stand",
+    description: "Ergonomic aluminum laptop stand with adjustable height.",
+    price: 29.99,
+    discount: "10%",
+    affiliateLink: "https://www.amazon.com/dp/example4",
+  },
 ];
 
 export async function GET() {
