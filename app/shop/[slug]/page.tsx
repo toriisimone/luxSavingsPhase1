@@ -5,18 +5,17 @@ export default async function ProductPage({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = params;
-
-  // Use absolute URL so it works on Vercel and locally
   const baseUrl =
     process.env.NEXT_PUBLIC_API_URL || "https://lux-savings-phase1.vercel.app";
 
-  const res = await fetch(`${baseUrl}/api/amazon?slug=${slug}`, {
+  const normalizedSlug = params.slug.toLowerCase().trim().replace(/[\s_]+/g, "-");
+
+  const res = await fetch(`${baseUrl}/api/amazon?slug=${normalizedSlug}`, {
     cache: "no-store",
   });
-  const product = await res.json();
 
-  if (!product || product.error) {
+  // Handle non-200 responses cleanly
+  if (!res.ok) {
     return (
       <main className="min-h-screen bg-slate-950 p-8">
         <h1 className="text-3xl font-bold text-white mb-4">Product not found</h1>
@@ -27,12 +26,12 @@ export default async function ProductPage({
     );
   }
 
+  const product = await res.json();
+
   return (
     <main className="min-h-screen bg-slate-950 p-8">
-      {/* Product title */}
       <h1 className="text-3xl font-bold text-white mb-4">{product.product}</h1>
 
-      {/* Price and discount */}
       {product.price && (
         <p className="text-slate-300 mb-2">Price: ${product.price}</p>
       )}
@@ -40,7 +39,6 @@ export default async function ProductPage({
         <p className="text-green-400 mb-4">Discount: {product.discount}</p>
       )}
 
-      {/* Product image */}
       {product.image && (
         <Image
           src={product.image}
@@ -51,12 +49,10 @@ export default async function ProductPage({
         />
       )}
 
-      {/* Description */}
       {product.description && (
         <p className="text-slate-300 mb-6">{product.description}</p>
       )}
 
-      {/* Affiliate link */}
       {product.affiliateLink && (
         <a
           href={product.affiliateLink}
