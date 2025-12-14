@@ -37,7 +37,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
 
-  const product = products.find((p) => p.slug === slug);
+  const normalizedSlug = slug?.toLowerCase().trim();
+
+  const product = products.find((p) => p.slug.toLowerCase() === normalizedSlug);
 
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
