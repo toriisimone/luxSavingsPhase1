@@ -31,8 +31,12 @@ export default async function ProductPage({
       <h1 className="text-3xl font-bold text-white mb-4">{product.product}</h1>
 
       {/* Price and discount */}
-      <p className="text-slate-300 mb-2">Price: ${product.price}</p>
-      <p className="text-green-400 mb-4">Discount: {product.discount}</p>
+      {product.price && (
+        <p className="text-slate-300 mb-2">Price: ${product.price}</p>
+      )}
+      {product.discount && (
+        <p className="text-green-400 mb-4">Discount: {product.discount}</p>
+      )}
 
       {/* Product image */}
       {product.image && (
