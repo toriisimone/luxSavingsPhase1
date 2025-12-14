@@ -8,7 +8,6 @@ const products = [
     description: "Noise-cancelling wireless headphones with 20 hours battery life.",
     price: 59.99,
     discount: "20%",
-    image: "/images/wireless-headphones.jpg",
     affiliateLink: "https://www.amazon.com/dp/example1",
   },
   {
@@ -18,7 +17,6 @@ const products = [
     description: "Fitness tracking smart watch with heart rate monitor.",
     price: 89.99,
     discount: "15%",
-    image: "/images/smart-watch.jpg",
     affiliateLink: "https://www.amazon.com/dp/example2",
   },
   {
@@ -28,7 +26,6 @@ const products = [
     description: "Portable speaker with deep bass and 10-hour battery.",
     price: 39.99,
     discount: "25%",
-    image: "/images/bluetooth-speaker.jpg",
     affiliateLink: "https://www.amazon.com/dp/example3",
   },
 ];
