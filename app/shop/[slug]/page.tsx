@@ -7,16 +7,14 @@ export default async function ProductPage({
 }) {
   const { slug } = params;
 
-  // Fetch all deals from your API
-  const res = await fetch("http://localhost:3000/api/deals", { cache: "no-store" });
-  const deals = await res.json();
-
-  // Match slug to product name
-  const product = deals.find(
-    (deal: any) => deal.product.toLowerCase().replace(/\s+/g, "-") === slug
+  // Fetch product details from Amazon API
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/amazon?slug=${slug}`,
+    { cache: "no-store" }
   );
+  const product = await res.json();
 
-  if (!product) {
+  if (!product || product.error) {
     return (
       <main className="min-h-screen bg-slate-950 p-8">
         <h1 className="text-3xl font-bold text-white mb-4">Product not found</h1>
